@@ -6,6 +6,6 @@
 
 CONNECTIONS=5
 
-IPTABLES=/sbin/iptables
+IPTABLES=/usr/sbin/iptables
 
 $IPTABLES -A INPUT -p tcp --syn --dport 22 -m connlimit --connlimit-above $CONNECTIONS -j REJECT

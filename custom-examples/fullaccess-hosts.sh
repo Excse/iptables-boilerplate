@@ -12,7 +12,7 @@
 
 # hint: you could use the whitelist configfile to achieve the same goal
 
-IPTABLES=/sbin/iptables
+IPTABLES=/usr/sbin/iptables
 
 for d in `cat /etc/hosts | grep "#fullaccess" | awk '{ print $1 }'`; do
   $IPTABLES -A INPUT -s $d -m state --state NEW -j ACCEPT

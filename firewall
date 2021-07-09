@@ -23,8 +23,8 @@
 ## WE ALLOW ALL --OUTPUT-- IPv4 TRAFFIC BY DEFAULT
 #################################################################
 
-IPTABLES=/sbin/iptables
-IP6TABLES=/sbin/ip6tables
+IPTABLES=/usr/sbin/iptables
+IP6TABLES=/usr/sbin/ip6tables
 
 case "$1" in
     start)
@@ -34,7 +34,7 @@ case "$1" in
         #################################################################
         if [ -f /etc/firewall/firewall.conf ] ; then
             source /etc/firewall/firewall.conf
-        else 
+        else
             echo "no configuration-file found in /etc/firewall/firewall.conf"
             echo "aborting, firewall NOT startet"
             exit 1
@@ -68,7 +68,7 @@ case "$1" in
         $IPTABLES -A invalid_drop -m state --state INVALID -j DROP
 
         #################################################################
-        # IPv4 FORWARDING 
+        # IPv4 FORWARDING
         #################################################################
 
         if $ipv4_forwarding ; then
@@ -123,7 +123,7 @@ case "$1" in
         # ALLOWED PORTS/PROTOCOLS FROM /etc/firewall/services.conf
         cat /etc/firewall/services.conf | grep -v "^#" | while read line; do
             [ -z "$line" ] && continue
-    
+
             # INITIALIZE
             PORT=""
             PROTO=""
@@ -267,7 +267,7 @@ case "$1" in
         fi
 
         #################################################################
-        # IPv6 
+        # IPv6
         #################################################################
 
         if $ipv6_loopback_ok ; then
@@ -305,17 +305,17 @@ case "$1" in
         ## log all other packages and reject them
         $IPTABLES -A INPUT -j LOG
         $IPTABLES -A INPUT -j REJECT
-        
+
         echo "firewall started"
         ;;
 
     stop)
         echo "stopping firewall..."
-        
+
         ## delete old rules
         $IPTABLES -F
         $IPTABLES -X
-        
+
         ## allow anything
         $IPTABLES -P INPUT ACCEPT
         $IPTABLES -P OUTPUT ACCEPT
@@ -325,7 +325,7 @@ case "$1" in
         $IP6TABLES -P INPUT ACCEPT
         $IP6TABLES -P OUTPUT ACCEPT
         $IP6TABLES -P FORWARD ACCEPT
-        
+
         echo "firewall stopped"
         ;;
 
@@ -347,7 +347,7 @@ case "$1" in
     version)
         echo "Version: 1.1.1"
         ;;
-        
+
     restart|reload|force-reload)
         $0 stop
         sleep 1

@@ -17,7 +17,7 @@ CONNECTIONS=8
 SECONDS=1
 
 
-IPTABLES=/sbin/iptables
+IPTABLES=/usr/sbin/iptables
 
 $IPTABLES -A INPUT -p tcp --dport 80 -m state --state NEW -m recent --set
 $IPTABLES -A INPUT -p tcp --dport 80 -m state --state NEW -m recent --update --seconds $SECONDS --hitcount $CONNECTIONS -j DROP

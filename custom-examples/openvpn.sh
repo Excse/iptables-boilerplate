@@ -8,6 +8,6 @@
 # clients have to be able to connect to udp-port 1194
 
 
-IPTABLES=/sbin/iptables
+IPTABLES=/usr/sbin/iptables
 
 $IPTABLES -t nat -A POSTROUTING -s 10.8.0.1/2 -o eth0 -j MASQUERADE
